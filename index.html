@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Course information, learning outcomes, weekly plan, calendar, materials and practice for Computer Programming with C.">
+  <title>Computer Programming with C</title>
+
+  <style>
+    :root {
+      color-scheme: light;
+      --background: #f4f7fb;
+      --surface: #ffffff;
+      --text: #17243a;
+      --muted: #4a5b70;
+      --primary: #174a86;
+      --primary-dark: #10365f;
+      --border: #d3deea;
+      --soft-blue: #eaf2fb;
+      --notice: #fff6df;
+      --notice-border: #956600;
+      --radius: 12px;
+      --content-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 1rem;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.2em;
+    }
+
+    a:hover {
+      color: var(--primary-dark);
+      text-decoration-thickness: 0.14em;
+    }
+
+    a:focus-visible {
+      outline: 3px solid #a85d00;
+      outline-offset: 4px;
+      border-radius: 3px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 1rem;
+      z-index: 10;
+      padding: 0.75rem 1rem;
+      background: var(--surface);
+      color: var(--text);
+      border: 2px solid var(--primary);
+      border-radius: 6px;
+    }
+
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    .site-header {
+      background: var(--primary-dark);
+      color: #ffffff;
+      padding: 2.5rem 1rem;
+    }
+
+    .header-inner,
+    main,
+    .site-footer-inner {
+      width: min(100% - 2rem, var(--content-width));
+      margin-inline: auto;
+    }
+
+    .site-header h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.15;
+    }
+
+    .site-header p {
+      max-width: 720px;
+      margin: 0.75rem 0 0;
+      color: #edf4ff;
+    }
+
+    .site-nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      width: min(100% - 2rem, var(--content-width));
+      margin-inline: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.25rem;
+      padding-block: 0.85rem;
+    }
+
+    .nav-inner a {
+      display: inline-block;
+      padding: 0.25rem 0;
+      font-weight: 650;
+    }
+
+    main {
+      padding-block: 1.5rem 3rem;
+    }
+
+    section {
+      margin-block: 1.5rem;
+      padding: clamp(1rem, 3vw, 1.75rem);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 3px 12px rgb(23 36 58 / 4%);
+    }
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      line-height: 1.25;
+    }
+
+    h3 {
+      margin-top: 1.25rem;
+      margin-bottom: 0.4rem;
+      font-size: 1.12rem;
+    }
+
+    p {
+      margin-block: 0.5rem 0.9rem;
+    }
+
+    ul,
+    ol {
+      padding-left: 1.4rem;
+    }
+
+    li + li {
+      margin-top: 0.35rem;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .notice {
+      padding: 1rem;
+      margin-block: 1rem;
+      background: var(--notice);
+      border-left: 4px solid var(--notice-border);
+      border-radius: 6px;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+
+    .overview-item {
+      padding: 1rem;
+      background: var(--soft-blue);
+      border-radius: 8px;
+    }
+
+    .overview-item strong {
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      margin-block: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    caption {
+      padding: 0.85rem;
+      text-align: left;
+      font-weight: 700;
+      background: var(--soft-blue);
+    }
+
+    th,
+    td {
+      padding: 0.85rem;
+      vertical-align: top;
+      border-bottom: 1px solid var(--border);
+    }
+
+    thead th {
+      background: #eaf2fb;
+      color: #17243a;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f8fafd;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .resource-list li {
+      margin-bottom: 0.65rem;
+    }
+
+    .practice-task {
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #f8fafd;
+    }
+
+    .site-footer {
+      background: var(--primary-dark);
+      color: #ffffff;
+      padding: 1.5rem 0;
+    }
+
+    .site-footer p {
+      margin: 0;
+    }
+
+    .site-footer a {
+      color: #ffffff;
+    }
+
+    @media (max-width: 640px) {
+      .header-inner,
+      main,
+      .site-footer-inner,
+      .nav-inner {
+        width: min(100% - 1rem, var(--content-width));
+      }
+
+      .site-header {
+        padding-block: 1.75rem;
+      }
+
+      section {
+        padding: 1rem;
+      }
+
+      th,
+      td {
+        padding: 0.65rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        color: #000000;
+      }
+
+      .site-header,
+      .site-footer {
+        background: #ffffff;
+        color: #000000;
+        border-bottom: 1px solid #000000;
+      }
+
+      .site-header p,
+      .site-footer a {
+        color: #000000;
+      }
+
+      .site-nav {
+        display: none;
+      }
+
+      section {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <h1>Computer Programming with C</h1>
+      <p>
+        Course overview, learning outcomes, weekly learning plan, class
+        calendar, study materials and practice.
+      </p>
+    </div>
+  </header>
+
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#overview">Overview</a>
+      <a href="#outcomes">Outcomes</a>
+      <a href="#weekly-plan">Weekly plan</a>
+      <a href="#calendar">Calendar</a>
+      <a href="#materials">Materials</a>
+      <a href="#practice">Practice task</a>
+      <a href="#language-support">Language support</a>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <section id="overview" aria-labelledby="overview-heading">
+      <h2 id="overview-heading">Course overview</h2>
+      <p>
+        Computer Programming with C introduces computer programming and the
+        fundamentals of the C programming language. The course develops
+        problem-solving skills through algorithms, flowcharts and structured
+        programming.
+      </p>
+
+      <div class="overview-grid">
+        <div class="overview-item">
+          <strong>Course code</strong>
+          <span>102001217</span>
+        </div>
+
+        <div class="overview-item">
+          <strong>Programme</strong>
+          <span>Bachelor of Technology (Information Technology)</span>
+        </div>
+
+        <div class="overview-item">
+          <strong>Semester</strong>
+          <span>I</span>
+        </div>
+
+        <div class="overview-item">
+          <strong>Academic batch</strong>
+          <span>2025–26</span>
+        </div>
+
+        <div class="overview-item">
+          <strong>Teaching scheme</strong>
+          <span>2 lecture hours per week; 0 tutorial hours</span>
+        </div>
+
+        <div class="overview-item">
+          <strong>Credits</strong>
+          <span>4</span>
+        </div>
+      </div>
+
+      <h3>Course objectives</h3>
+      <ul>
+        <li>Understand the basics of computers and programming.</li>
+        <li>Develop problem-solving skills through the C programming language.</li>
+      </ul>
+
+      <h3>Course topics</h3>
+      <ol>
+        <li>
+          <strong>Introduction to computer programming:</strong>
+          machine, assembly and high-level languages; compilers and
+          interpreters; algorithms and flowcharts.
+        </li>
+        <li>
+          <strong>Fundamentals of C:</strong>
+          program structure, comments, header files, data types, constants,
+          variables, operators, expressions, type conversion, precedence,
+          associativity and input/output functions.
+        </li>
+        <li>
+          <strong>Control structures:</strong>
+          conditional statements, switch, conditional operator, goto, loops,
+          break and continue.
+        </li>
+        <li>
+          <strong>Arrays and strings:</strong>
+          one-dimensional, two-dimensional and multidimensional arrays;
+          character arrays, strings and built-in string functions.
+        </li>
+        <li>
+          <strong>Functions:</strong>
+          user-defined functions, declarations, definitions, calls,
+          parameters and nesting.
+        </li>
+        <li>
+          <strong>Structures:</strong>
+          structure members, accessing members, arrays of structures and
+          structures with functions.
+        </li>
+        <li>
+          <strong>Pointers:</strong>
+          pointers, pointer-to-pointer, pointers and arrays, pointers to
+          arrays, and arrays to pointers.
+        </li>
+      </ol>
+    </section>
+
+    <section id="outcomes" aria-labelledby="outcomes-heading">
+      <h2 id="outcomes-heading">Course learning outcomes</h2>
+      <p>
+        By the end of the course, students are expected to work toward the
+        following supplied outcomes.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>Course outcomes and supplied weightings</caption>
+          <thead>
+            <tr>
+              <th scope="col">Outcome</th>
+              <th scope="col">Expected learning</th>
+              <th scope="col">Weighting</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>CO-1</strong></td>
+              <td>Formulate an algorithm and/or flowchart for a given problem.</td>
+              <td>20%</td>
+            </tr>
+            <tr>
+              <td><strong>CO-2</strong></td>
+              <td>
+                Translate an algorithm and/or flowchart into a C program using
+                correct syntax and execute it.
+              </td>
+              <td>20%</td>
+            </tr>
+            <tr>
+              <td><strong>CO-3</strong></td>
+              <td>Apply logical and structured thinking to write efficient code.</td>
+              <td>30%</td>
+            </tr>
+            <tr>
+              <td><strong>CO-4</strong></td>
+              <td>Solve problems and build small applications using C concepts.</td>
+              <td>30%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="weekly-plan" aria-labelledby="weekly-plan-heading">
+      <h2 id="weekly-plan-heading">Reviewed four-week learning plan</h2>
+      <p>
+        The following plan uses the reviewed topics, activities and evidence
+        of learning. Dates are proposed for Thursday and Friday classes.
+      </p>
+
+      <div class="notice">
+        <strong>Scheduling note:</strong>
+        The supplied start date, 6 July 2026, falls on a Monday. The first
+        proposed class is Thursday, 9 July 2026. The supplied end date,
+        4 October 2026, falls on a Sunday. Holiday and institutional calendar
+        checks are <strong>To be added</strong>.
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <caption>Weekly plan for faculty review</caption>
+          <thead>
+            <tr>
+              <th scope="col">Week and proposed dates</th>
+              <th scope="col">Topic</th>
+              <th scope="col">Outcome</th>
+              <th scope="col">Learning activity</th>
+              <th scope="col">Evidence of learning</th>
+              <th scope="col">Resource supplied</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>Week 1</strong><br>
+                9–10 July 2026
+              </td>
+              <td>
+                Introduction to Computer Programming: language levels,
+                compiler/interpreter, algorithms and flowcharts.
+              </td>
+              <td>CO-1</td>
+              <td>
+                Classroom teaching; prepare an algorithm and/or flowchart
+                for a given problem.
+              </td>
+              <td>Completed algorithm and/or flowchart.</td>
+              <td>
+                Attached syllabus and listed reference books.
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>Week 2</strong><br>
+                16–17 July 2026
+              </td>
+              <td>
+                Fundamentals of C: program structure, comments, header files,
+                data types, variables, constants, operators, expressions,
+                type conversion and input/output.
+              </td>
+              <td>CO-2</td>
+              <td>
+                Write and execute a Hello World program, variable declaration
+                exercises and arithmetic programs.
+              </td>
+              <td>Submitted C programs and their outputs.</td>
+              <td>
+                Attached syllabus, practical list and reference books.
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>Week 3</strong><br>
+                23–24 July 2026
+              </td>
+              <td>
+                Conditional control structures: if, if-else, nested if-else,
+                else-if ladder, switch and conditional operator.
+              </td>
+              <td>CO-3</td>
+              <td>
+                Write programs for even/odd, positive/negative/zero, maximum
+                of three numbers, grades and a calculator using switch.
+              </td>
+              <td>Submitted programs and outputs.</td>
+              <td>Attached syllabus and practical list.</td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>Week 4</strong><br>
+                30–31 July 2026
+              </td>
+              <td>
+                Loops: while, do-while and for; break, continue and nested
+                loops.
+              </td>
+              <td>CO-3</td>
+              <td>
+                Write loop-based programs for factorial, prime checking and
+                reversing a number; complete an assignment or quiz.
+              </td>
+              <td>Programs and outputs; assignment or quiz results.</td>
+              <td>Attached syllabus and practical list.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="muted">
+        Scope note: this reviewed four-week plan covers the introduction,
+        fundamentals of C and control structures. Arrays and strings,
+        functions, structures and pointers require subsequent planning.
+      </p>
+    </section>
+
+    <section id="calendar" aria-labelledby="calendar-heading">
+      <h2 id="calendar-heading">Dated class calendar</h2>
+      <p>
+        Proposed class dates are based on Thursday and Friday as the class
+        days. No holidays have been assumed.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>July 2026 — proposed teaching dates</caption>
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Day</th>
+              <th scope="col">Week</th>
+              <th scope="col">Planned focus</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><time datetime="2026-07-09">9 July 2026</time></td>
+              <td>Thursday</td>
+              <td>Week 1</td>
+              <td>Introduction to computer programming</td>
+            </tr>
+            <tr>
+              <td><time datetime="2026-07-10">10 July 2026</time></td>
+              <td>Friday</td>
+              <td>Week 1</td>
+              <td>Algorithms and flowcharts</td>
+            </tr>
+            <tr>
+              <td><time datetime="2026-07-16">16 July 2026</time></td>
+              <td>Thursday</td>
+              <td>Week 2</td>
+              <td>Fundamentals of C</td>
+            </tr>
+            <tr>
+              <td><time datetime="2026-07-17">17 July 2026</time></td>
+              <td>Friday</td>
+              <td>Week 2</td>
+              <td>Program structure, variables and expressions</td>
+            </tr>
+            <tr>
+              <td><time datetime="2026-07-23">23 July 2026</time></td>
+              <td>Thursday</td>
+              <td>Week 3</td>
+              <td>Conditional statements</td>
+            </tr>
+            <tr>
+              <td><time datetime="2026-07-24">24 July 2026</time></td>
+              <td>Friday</td>
+              <td>Week 3</td>
+              <td>Decision-making practice programs</td>
+            </tr>
+            <tr>
+              <td><time datetime="2026-07-30">30 July 2026</time></td>
+              <td>Thursday</td>
+              <td>Week 4</td>
+              <td>Looping structures</td>
+            </tr>
+            <tr>
+              <td><time datetime="2026-07-31">31 July 2026</time></td>
+              <td>Friday</td>
+              <td>Week 4</td>
+              <td>Loop-based programs and assignment or quiz</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Calendar items to confirm</h3>
+      <ul>
+        <li>Institutional holidays and non-teaching days: <strong>To be added</strong>.</li>
+        <li>Exact class times and room details: <strong>To be added</strong>.</li>
+        <li>Dates for the remaining syllabus units: <strong>To be added</strong>.</li>
+        <li>Calendar confirmation through 4 October 2026: <strong>To be added</strong>.</li>
+      </ul>
+    </section>
+
+    <section id="materials" aria-labelledby="materials-heading">
+      <h2 id="materials-heading">Learning materials</h2>
+      <p>
+        The following resources were supplied for the course. External links
+        were not provided, so no URLs have been added.
+      </p>
+
+      <h3>Reference books</h3>
+      <ul class="resource-list">
+        <li>
+          E. Balagurusamy, <cite>Programming in ANSI C</cite>, 8th edition.
+        </li>
+        <li>Yashavant Kanetkar, <cite>Let Us C</cite>.</li>
+        <li>
+          Pradip Dey and Manas Ghosh,
+          <cite>Fundamentals of Computing and Programming in C</cite>.
+        </li>
+        <li>R. G. Dromey, <cite>How to Solve it by Computer</cite>.</li>
+      </ul>
+
+      <h3>Other supplied resources</h3>
+      <ul class="resource-list">
+        <li>Course syllabus: supplied course document.</li>
+        <li>Practical list: supplied course document.</li>
+        <li>
+          NPTEL courses and tutorials: resource URLs
+          <strong>To be added</strong>.
+        </li>
+      </ul>
+
+      <h3>Course teaching and assessment activities</h3>
+      <ul>
+        <li>Direct classroom teaching.</li>
+        <li>Assignments and quizzes.</li>
+        <li>Continuous assessment.</li>
+        <li>Seminar or poster activity.</li>
+        <li>Projects.</li>
+      </ul>
+
+      <p>
+        Additional slides, handouts, assignment sheets and practice files:
+        <strong>To be added</strong>.
+      </p>
+    </section>
+
+    <section id="practice" aria-labelledby="practice-heading">
+      <h2 id="practice-heading">Practice task</h2>
+      <div class="practice-task">
+        <h3>Write a C program to find the maximum of three numbers</h3>
+        <p>
+          This task is based on the supplied practical list and the
+          conditional-control-structures topic in Week 3.
+        </p>
+
+        <ol>
+          <li>Read three numbers as input.</li>
+          <li>Use conditional statements to determine the maximum.</li>
+          <li>Display the result.</li>
+          <li>Run the program and record its output.</li>
+        </ol>
+
+        <p>
+          <strong>Evidence of learning:</strong>
+          Submit the C source code and its output.
+        </p>
+
+        <p>
+          <strong>Assessment criteria:</strong>
+          Correctness criteria and marking scheme
+          <strong>To be added</strong>.
+        </p>
+      </div>
+    </section>
+
+    <section id="language-support" aria-labelledby="language-support-heading">
+      <h2 id="language-support-heading">Language support</h2>
+      <p>
+        Language-support information and resources have not been supplied.
+        Details are therefore marked <strong>To be added</strong>.
+      </p>
+
+      <ul>
+        <li>Preferred language or languages for explanations: To be added.</li>
+        <li>Programming vocabulary glossary: To be added.</li>
+        <li>Bilingual notes or translated materials: To be added.</li>
+        <li>Language-support contact or guidance: To be added.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <p>
+        Computer Programming with C
+        <span aria-hidden="true">|</span>
+        Course information and learning plan
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
